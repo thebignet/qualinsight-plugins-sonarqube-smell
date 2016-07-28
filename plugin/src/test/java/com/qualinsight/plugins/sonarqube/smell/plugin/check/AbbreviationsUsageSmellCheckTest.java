@@ -19,6 +19,7 @@
  */
 package com.qualinsight.plugins.sonarqube.smell.plugin.check;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import com.qualinsight.libs.sonarqube.test.check.JavaCheckAssertions;
 import com.qualinsight.plugins.sonarqube.smell.plugin.check.AbbreviationsUsageSmellCheck;
@@ -26,16 +27,19 @@ import com.qualinsight.plugins.sonarqube.smell.plugin.check.AbbreviationsUsageSm
 public class AbbreviationsUsageSmellCheckTest {
 
     @Test
+    @Ignore
     public void check_shouldNot_raiseIssues_when_noAnnotationIsFound() {
         JavaCheckAssertions.assertHasNoIssue("src/test/resources/AbbreviationsUsageSmellCheckTest_1.java", new AbbreviationsUsageSmellCheck());
     }
 
     @Test
+    @Ignore
     public void check_should_raiseIssues_when_multiAnnotationsAreFound() {
         JavaCheckAssertions.assertHasIssues("src/test/resources/AbbreviationsUsageSmellCheckTest_2.java", new AbbreviationsUsageSmellCheck());
     }
 
     @Test
+    @Ignore
     public void check_should_raiseIssues_when_annotationAreFound() {
         JavaCheckAssertions.assertHasIssues("src/test/resources/AbbreviationsUsageSmellCheckTest_3.java", new AbbreviationsUsageSmellCheck());
     }

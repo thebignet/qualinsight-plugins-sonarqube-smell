@@ -19,6 +19,7 @@
  */
 package com.qualinsight.plugins.sonarqube.smell.plugin.check;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
+import org.sonar.plugins.java.api.JavaFileScannerContext;
 import org.sonar.plugins.java.api.semantic.Type;
 import org.sonar.plugins.java.api.tree.AnnotationTree;
 import org.sonar.plugins.java.api.tree.Arguments;
@@ -76,7 +78,7 @@ public abstract class AbstractSmellCheck extends IssuableSubscriptionVisitor {
 
     private void handleSmellAnnotation(final AnnotationTree annotationTree) {
         String message = "";
-        Double minutes = 0.0;
+        Integer minutes = 0;
         SmellType type = null;
         final Arguments arguments = annotationTree.arguments();
         for (final ExpressionTree expressionTree : arguments) {
@@ -106,7 +108,7 @@ public abstract class AbstractSmellCheck extends IssuableSubscriptionVisitor {
             if (matcher.matches()) {
                 message = matcher.group(1);
             }
-            addIssue(annotationTree, message, minutes);
+          reportIssue(annotationTree, message, Collections.<JavaFileScannerContext.Location>emptyList(), minutes);
         }
     }
 
